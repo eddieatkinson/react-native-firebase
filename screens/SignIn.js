@@ -1,8 +1,40 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Container, Content, Header, Form, Item, Input, Button, Label } from 'native-base';
+import { createUser, loginUser } from './../backend/firebase';
 
 export default class SignIn extends Component {
+  state = {
+    email: '',
+    password: '',
+  }
+
+  handleFieldChange = name => (text) => {
+    this.setState({
+      [name]: text,
+    });
+  }
+
+  signInUser() {
+    const { email, password } = this.state;
+    try {
+      createUser(email, password);
+    }
+    catch(error) {
+      console.log(error.toString());
+    }
+  }
+
+  loginUser() {
+    const { email, password } = this.state;
+    try {
+      loginUser(email, password);
+    }
+    catch(error) {
+      console.log(error.toString());
+    }
+  }
+
   render() {
     return (
       <Container style={styles.container}>
@@ -12,6 +44,7 @@ export default class SignIn extends Component {
             <Input
             autoCorrect={false}
             autoCapitalize='none'
+            onChangeText={this.handleFieldChange('email')}
             />
           </Item>
 
@@ -21,6 +54,7 @@ export default class SignIn extends Component {
             secureTextEntry
             autoCorrect={false}
             autoCapitalize='none'
+            onChangeText={this.handleFieldChange('password')}
             />
           </Item>
 
@@ -29,8 +63,18 @@ export default class SignIn extends Component {
             full
             rounded
             success
+            onPress={ () => this.loginUser() }
           >
-          <Text>Login</Text>
+          <Text style={styles.text}>Login</Text>
+          </Button>
+          <Button
+            style={styles.button}
+            full
+            rounded
+            primary
+            onPress={ () => this.signInUser() }
+          >
+          <Text style={styles.text}>Sign Up</Text>
           </Button>
         </Form>
       </Container>
@@ -47,4 +91,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 10,
   },
+  text: {
+    color: 'white',
+  }
 });
