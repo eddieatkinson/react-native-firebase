@@ -36,6 +36,7 @@ export default class SignIn extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <Container style={styles.container}>
         <Form>
