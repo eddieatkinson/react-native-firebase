@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Container, Content, Header, Form, Item, Input, Button, Label } from 'native-base';
-import { createUser, loginUser } from './../backend/firebase';
+import { createUser, loginUser } from '../backend/firebase';
 
 export default class SignIn extends Component {
   state = {
