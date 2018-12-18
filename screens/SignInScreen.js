@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text } from 'react-native';
+import { connect } from 'react-redux';
 import { Container, Content, Header, Form, Item, Input, Button, Label } from 'native-base';
+import { emailChanged, passwordChanged } from '../actions';
 import { createUser, loginUser } from '../backend/firebase';
 
-export default class SignIn extends Component {
+class SignIn extends Component {
   state = {
     email: '',
     password: '',
   }
 
-  handleFieldChange = name => (text) => {
-    this.setState({
-      [name]: text,
-    });
+  handleEmailChange(text) {
+    this.props.emailChanged(text);
+  }
+
+  handlePasswordChange(text) {
+    this.props.passwordChanged(text);
   }
 
   signInUser() {
@@ -36,26 +40,27 @@ export default class SignIn extends Component {
   }
 
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     return (
       <Container style={styles.container}>
         <Form>
           <Item floatingLabel>
             <Label>Email</Label>
             <Input
-            autoCorrect={false}
-            autoCapitalize='none'
-            onChangeText={this.handleFieldChange('email')}
+              autoCorrect={false}
+              autoCapitalize='none'
+              onChangeText={this.handleEmailChange.bind(this)}
+              value={this.props.email}
             />
           </Item>
 
           <Item floatingLabel>
             <Label>Password</Label>
             <Input
-            secureTextEntry
-            autoCorrect={false}
-            autoCapitalize='none'
-            onChangeText={this.handleFieldChange('password')}
+              secureTextEntry
+              autoCorrect={false}
+              autoCapitalize='none'
+              onChangeText={this.handlePasswordChange.bind(this)}
             />
           </Item>
 
@@ -96,3 +101,12 @@ const styles = StyleSheet.create({
     color: 'white',
   }
 });
+
+const mapStateToProps = state => {
+  return {
+    email: state.auth.email,
+    password: state.auth.password,
+  }
+};
+
+export default connect(mapStateToProps, { emailChanged, passwordChanged })(SignIn);
