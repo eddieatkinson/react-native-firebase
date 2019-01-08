@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, Header, Form, Item, Input, Button, Label } from 'native-base';
-import { emailChanged, passwordChanged } from '../actions';
-import { createUser, loginUser } from '../backend/firebase';
+import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { createUser } from '../backend/firebase';
 
 class SignIn extends Component {
   state = {
@@ -30,21 +30,16 @@ class SignIn extends Component {
   }
 
   loginUser() {
-    const { email, password } = this.state;
-    try {
-      loginUser(email, password);
-    }
-    catch(error) {
-      console.log(error.toString());
-    }
+    const { email, password, loginUser } = this.props;
+    loginUser({ email, password });
   }
 
   render() {
-    console.log(this.props);
+    const { errorMessage } = this.props;
     return (
       <Container style={styles.container}>
         <Form>
-          <Item floatingLabel>
+          <Item floatingLabel error={!!errorMessage}>
             <Label>Email</Label>
             <Input
               autoCorrect={false}
@@ -54,15 +49,18 @@ class SignIn extends Component {
             />
           </Item>
 
-          <Item floatingLabel>
+          <Item floatingLabel error={!!errorMessage}>
             <Label>Password</Label>
             <Input
               secureTextEntry
               autoCorrect={false}
               autoCapitalize='none'
               onChangeText={this.handlePasswordChange.bind(this)}
+              value={this.props.password}
             />
           </Item>
+
+          <Text style={{color: 'red', padding: 5}}>{errorMessage}</Text>
 
           <Button
             style={styles.button}
@@ -80,7 +78,7 @@ class SignIn extends Component {
             primary
             onPress={ () => this.signInUser() }
           >
-          <Text style={styles.text}>Sign Up</Text>
+            <Text style={styles.text}>Sign Up</Text>
           </Button>
         </Form>
       </Container>
@@ -106,7 +104,10 @@ const mapStateToProps = state => {
   return {
     email: state.auth.email,
     password: state.auth.password,
+    errorMessage: state.auth.errorMessage,
   }
 };
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged })(SignIn);
+export default connect(mapStateToProps, {
+  emailChanged, passwordChanged, loginUser,
+})(SignIn);

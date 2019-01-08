@@ -31,8 +31,9 @@ export default class App extends React.Component {
         />
       );
     } else {
+      const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
       return (
-        <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
+        <Provider store={store}>
           <View style={styles.container}>
             {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
             <AppNavigator />
