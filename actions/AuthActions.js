@@ -36,9 +36,6 @@ export const createUser = ({ email, password }) => {
         dispatch({ type: CREATE_USER_SUCCESS, payload: user });
       })
       .catch((error) => {
-        console.log(error);
-        console.log(typeof(error));
-        console.log(error.Error);
         const payload = error.toString();
         dispatch({ type: CREATE_USER_FAILURE, payload });
       });

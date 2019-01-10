@@ -3,10 +3,17 @@ import { createSwitchNavigator, createStackNavigator, createNavigationContainer 
 
 import SignInScreen from '../screens/SignInScreen';
 import AuthLoadingScreen from './../screens/AuthLoadingScreen';
+import TestScreen from './../screens/TestScreen';
 
 const AuthStack = createStackNavigator(
   {
     SignIn: SignInScreen,
+  }
+)
+
+const MainStack = createStackNavigator(
+  {
+    Test: TestScreen,
   }
 )
 
@@ -16,6 +23,7 @@ export default createNavigationContainer (createSwitchNavigator(
     // Read more at https://reactnavigation.org/docs/en/auth-flow.html
     AuthLoading: AuthLoadingScreen,
     Auth: AuthStack,
+    Main: MainStack,
   },
   {
     initialRouteName: 'Auth',

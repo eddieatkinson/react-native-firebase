@@ -3,12 +3,19 @@ import { StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, Header, Form, Item, Input, Button, Label } from 'native-base';
 import { emailChanged, passwordChanged, loginUser, createUser } from '../actions';
-// import { createUser } from '../backend/firebase';
 
 class SignIn extends Component {
   state = {
     email: '',
     password: '',
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(this.props.user);
+    console.log(nextProps.user);
+    if (nextProps.user) {
+      this.props.navigation.navigate('Test');
+    }
   }
 
   handleEmailChange(text) {
@@ -19,19 +26,10 @@ class SignIn extends Component {
     this.props.passwordChanged(text);
   }
 
-  // createUser() {
-  //   const { email, password } = this.state;
-  //   try {
-  //     createUser(email, password);
-  //   }
-  //   catch(error) {
-  //     console.log(error.toString());
-  //   }
-  // }
-
-  loginUser() {
+  async loginUser() {
     const { email, password, loginUser } = this.props;
-    loginUser({ email, password });
+    await loginUser({ email, password });
+    // console.log(this.props.user);
   }
 
   createUser() {
@@ -110,6 +108,7 @@ const mapStateToProps = state => {
     email: state.auth.email,
     password: state.auth.password,
     errorMessage: state.auth.errorMessage,
+    user: state.auth.user,
   }
 };
 
