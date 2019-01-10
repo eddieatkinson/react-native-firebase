@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, Header, Form, Item, Input, Button, Label } from 'native-base';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
-import { createUser } from '../backend/firebase';
+import { emailChanged, passwordChanged, loginUser, createUser } from '../actions';
+// import { createUser } from '../backend/firebase';
 
 class SignIn extends Component {
   state = {
@@ -19,19 +19,24 @@ class SignIn extends Component {
     this.props.passwordChanged(text);
   }
 
-  signInUser() {
-    const { email, password } = this.state;
-    try {
-      createUser(email, password);
-    }
-    catch(error) {
-      console.log(error.toString());
-    }
-  }
+  // createUser() {
+  //   const { email, password } = this.state;
+  //   try {
+  //     createUser(email, password);
+  //   }
+  //   catch(error) {
+  //     console.log(error.toString());
+  //   }
+  // }
 
   loginUser() {
     const { email, password, loginUser } = this.props;
     loginUser({ email, password });
+  }
+
+  createUser() {
+    const { email, password, createUser } = this.props;
+    createUser({ email, password });
   }
 
   render() {
@@ -76,7 +81,7 @@ class SignIn extends Component {
             full
             rounded
             primary
-            onPress={ () => this.signInUser() }
+            onPress={ () => this.createUser() }
           >
             <Text style={styles.text}>Sign Up</Text>
           </Button>
@@ -109,5 +114,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  emailChanged, passwordChanged, loginUser,
+  emailChanged, passwordChanged, loginUser, createUser,
 })(SignIn);
