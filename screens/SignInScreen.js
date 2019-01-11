@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Content, Header, Form, Item, Input, Button, Label } from 'native-base';
+import { Container, Form, Item, Input, Button, Label } from 'native-base';
 import { emailChanged, passwordChanged, loginUser, createUser } from '../actions';
+import { setItem } from './../backend/asyncStorage';
 
 class SignIn extends Component {
   state = {
@@ -10,9 +11,9 @@ class SignIn extends Component {
     password: '',
   }
 
+  
+
   componentWillReceiveProps(nextProps) {
-    console.log(this.props.user);
-    console.log(nextProps.user);
     if (nextProps.user) {
       this.props.navigation.navigate('Test');
     }
@@ -28,8 +29,7 @@ class SignIn extends Component {
 
   async loginUser() {
     const { email, password, loginUser } = this.props;
-    await loginUser({ email, password });
-    // console.log(this.props.user);
+    const x = await loginUser({ email, password });
   }
 
   createUser() {
@@ -38,7 +38,7 @@ class SignIn extends Component {
   }
 
   render() {
-    const { errorMessage } = this.props;
+    const { errorMessage, user } = this.props;
     return (
       <Container style={styles.container}>
         <Form>

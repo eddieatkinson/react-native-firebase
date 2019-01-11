@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, CREATE_USER_SUCCESS, CREATE_USER_FAILURE } from './types';
+import { setItem } from './../backend/asyncStorage';
 
 export const emailChanged = (text) => {
   return {
@@ -19,6 +20,9 @@ export const loginUser = ({ email, password }) => {
   return (dispatch) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => {
+        const { uid } = user.user;
+        console.log(uid);
+        setItem('myUid', uid);
         dispatch({ type: LOGIN_USER_SUCCESS, payload: user });
       })
       .catch((error) => {
