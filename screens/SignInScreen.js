@@ -15,6 +15,9 @@ class SignIn extends Component {
     getItem('myUid')
       .then((myUid) => {
         console.log(myUid);
+        if (myUid) {
+          this.props.navigation.navigate('Main');
+        }
       });
   }
 
