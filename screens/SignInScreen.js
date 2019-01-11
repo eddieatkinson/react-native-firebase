@@ -3,7 +3,7 @@ import { StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Form, Item, Input, Button, Label } from 'native-base';
 import { emailChanged, passwordChanged, loginUser, createUser } from '../actions';
-import { setItem } from './../backend/asyncStorage';
+import { getItem } from './../backend/asyncStorage';
 
 class SignIn extends Component {
   state = {
@@ -11,11 +11,16 @@ class SignIn extends Component {
     password: '',
   }
 
-  
+  componentDidMount() {
+    getItem('myUid')
+      .then((myUid) => {
+        console.log(myUid);
+      });
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.user) {
-      this.props.navigation.navigate('Test');
+      this.props.navigation.navigate('Main');
     }
   }
 

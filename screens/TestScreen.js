@@ -10,7 +10,7 @@ export default class TestScreen extends React.Component {
   render() {
     return (
       <View style={{ paddingTop: 20 }}>
-        <TestComponent />
+        <TestComponent navigation = {this.props.navigation} />
       </View>
     );
   }
