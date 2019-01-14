@@ -9,10 +9,18 @@ export default class TestComponent extends Component {
     console.log(this.props.navigation);
     this.props.navigation.navigate('Auth');
   }
+  infoRedirect() {
+    this.props.navigation.navigate('Info');
+  }
   render() {
     return (
       <Container style={styles.container}>
         <Form>
+          <Item>
+            <Label>Name</Label>
+            <Input>
+            </Input>
+          </Item>
           <Item>
             <Label>Number</Label>
             <Input>
@@ -36,6 +44,14 @@ export default class TestComponent extends Component {
             <Text style={styles.text}>Logout</Text>
           </Button>
         </Form>
+        <Button
+          style={styles.button}
+          full
+          info
+          onPress={ () => this.infoRedirect() }
+        >
+          <Text>Info</Text>
+        </Button>
       </Container>
     );
   }

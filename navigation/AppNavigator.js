@@ -4,6 +4,7 @@ import { createSwitchNavigator, createStackNavigator, createNavigationContainer 
 import SignInScreen from '../screens/SignInScreen';
 import AuthLoadingScreen from './../screens/AuthLoadingScreen';
 import TestScreen from './../screens/TestScreen';
+import InfoScreen from './../screens/InfoScreen';
 
 const AuthStack = createStackNavigator(
   {
@@ -14,6 +15,7 @@ const AuthStack = createStackNavigator(
 const MainStack = createStackNavigator(
   {
     Test: TestScreen,
+    Info: InfoScreen,
   }
 )
 
