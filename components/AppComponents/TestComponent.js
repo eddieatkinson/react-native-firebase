@@ -6,7 +6,6 @@ import { removeItem } from './../../backend/asyncStorage';
 export default class TestComponent extends Component {
   logoutUser() {
     removeItem('myUid');
-    console.log(this.props.navigation);
     this.props.navigation.navigate('Auth');
   }
   infoRedirect() {

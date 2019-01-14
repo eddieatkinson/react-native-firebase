@@ -6,15 +6,10 @@ import { emailChanged, passwordChanged, loginUser, createUser } from '../actions
 import { getItem } from './../backend/asyncStorage';
 
 class SignIn extends Component {
-  state = {
-    email: '',
-    password: '',
-  }
 
   componentDidMount() {
     getItem('myUid')
       .then((myUid) => {
-        console.log(myUid);
         if (myUid) {
           this.props.navigation.navigate('Main');
         }
@@ -46,7 +41,7 @@ class SignIn extends Component {
   }
 
   render() {
-    const { errorMessage, user } = this.props;
+    const { errorMessage } = this.props;
     return (
       <Container style={styles.container}>
         <Form>

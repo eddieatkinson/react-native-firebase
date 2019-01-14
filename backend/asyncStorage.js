@@ -12,7 +12,6 @@ export function getItem(key) {
   return new Promise((resolve, reject) => {
     AsyncStorage.getItem(key)    
       .then((response) => {
-        console.log(response);
         resolve(response);
       })
       .catch((error) => {

@@ -21,7 +21,6 @@ export const loginUser = ({ email, password }) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => {
         const { uid } = user.user;
-        console.log(uid);
         setItem('myUid', uid);
         dispatch({ type: LOGIN_USER_SUCCESS, payload: user });
       })
