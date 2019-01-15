@@ -3,6 +3,7 @@ import { StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Form, Item, Input, Button, Label } from 'native-base';
 import { emailChanged, passwordChanged, loginUser, createUser } from '../actions';
+import AuthLoadingScreen from './AuthLoadingScreen';
 import { getItem } from './../backend/asyncStorage';
 
 class SignIn extends Component {
@@ -41,7 +42,14 @@ class SignIn extends Component {
   }
 
   render() {
-    const { errorMessage } = this.props;
+    const { errorMessage, loading } = this.props;
+    {
+      if (loading) {
+        return (
+          <AuthLoadingScreen />
+        )
+      }
+    }
     return (
       <Container style={styles.container}>
         <Form>
@@ -110,6 +118,7 @@ const mapStateToProps = state => {
   return {
     email: state.auth.email,
     password: state.auth.password,
+    loading: state.auth.loading,
     errorMessage: state.auth.errorMessage,
     user: state.auth.user,
   }

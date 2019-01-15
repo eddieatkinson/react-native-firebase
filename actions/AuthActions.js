@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, CREATE_USER_SUCCESS, CREATE_USER_FAILURE } from './types';
+import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, CREATE_USER_SUCCESS, CREATE_USER_FAILURE, LOGIN_USER } from './types';
 import { setItem } from './../backend/asyncStorage';
 
 export const emailChanged = (text) => {
@@ -18,6 +18,8 @@ export const passwordChanged = (text) => {
 
 export const loginUser = ({ email, password }) => {
   return (dispatch) => {
+    dispatch({ type: LOGIN_USER });
+
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => {
         const { uid } = user.user;
