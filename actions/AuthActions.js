@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, CREATE_USER_SUCCESS, CREATE_USER_FAILURE, LOGIN_USER } from './types';
+import { EMAIL_CHANGED, PASSWORD_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, CREATE_USER_SUCCESS, CREATE_USER_FAILURE, LOGIN_USER, LOGOUT_USER } from './types';
 import { setItem } from './../backend/asyncStorage';
 
 export const emailChanged = (text) => {
@@ -45,4 +45,8 @@ export const createUser = ({ email, password }) => {
         dispatch({ type: CREATE_USER_FAILURE, payload });
       });
   }
+}
+
+export const logoutUser = () => {
+  return ({type: LOGOUT_USER});
 }

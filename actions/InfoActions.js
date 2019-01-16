@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { NAME_CHANGED, NUMBER_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, CREATE_USER_SUCCESS, CREATE_USER_FAILURE } from './types';
+import { NAME_CHANGED, NUMBER_CHANGED, INFO_CREATE, LOGIN_USER_FAILURE, CREATE_USER_SUCCESS, CREATE_USER_FAILURE } from './types';
 
 export const nameChanged = (text) => {
   return {
@@ -15,31 +15,17 @@ export const numberChanged = (text) => {
   };
 };
 
-// export const loginUser = ({ email, password }) => {
-//   return (dispatch) => {
-//     firebase.auth().signInWithEmailAndPassword(email, password)
-//       .then(user => {
-//         const { uid } = user.user;
-//         setItem('myUid', uid);
-//         dispatch({ type: LOGIN_USER_SUCCESS, payload: user });
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//         const payload = 'The information you have provided is incorrect.';
-//         dispatch({ type: LOGIN_USER_FAILURE, payload });
-//       });
-//   }
-// }
-
-// export const createUser = ({ email, password }) => {
-//   return (dispatch) => {
-//     firebase.auth().createUserWithEmailAndPassword(email, password)
-//       .then(user => {
-//         dispatch({ type: CREATE_USER_SUCCESS, payload: user });
-//       })
-//       .catch((error) => {
-//         const payload = error.toString();
-//         dispatch({ type: CREATE_USER_FAILURE, payload });
-//       });
-//   }
-// }
+export const infoSubmitted = ({name, number}) => {
+  const { currentUser } = firebase.auth();
+  return (dispatch) => {
+    firebase.database().ref(`/users/${currentUser.uid}/info`)
+      .push({ name, number })
+      .then((response) => {
+        console.log(response);
+        dispatch({type: INFO_CREATE})
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+}

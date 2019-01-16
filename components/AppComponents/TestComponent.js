@@ -3,7 +3,7 @@ import { Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Form, Item, Input, Button, Label } from 'native-base';
 import { removeItem } from './../../backend/asyncStorage';
-import { nameChanged, numberChanged } from './../../actions';
+import { nameChanged, numberChanged, infoSubmitted, logoutUser } from './../../actions';
 
 class TestComponent extends Component {
   handleNameChange(text) {
@@ -15,11 +15,13 @@ class TestComponent extends Component {
   }
 
   submitInfo() {
-    
+    const { name, number } = this.props;
+    this.props.infoSubmitted({name, number})
   }
 
   logoutUser() {
     removeItem('myUid');
+    this.props.logoutUser();
     this.props.navigation.navigate('Auth');
   }
 
@@ -103,5 +105,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  nameChanged, numberChanged,
+  nameChanged, numberChanged, infoSubmitted, logoutUser
 })(TestComponent);
