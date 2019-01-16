@@ -1,2 +1,2 @@
 export * from './AuthActions';
-// export * from './InfoActions';
+export * from './InfoActions';
