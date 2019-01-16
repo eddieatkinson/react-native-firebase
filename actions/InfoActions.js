@@ -29,3 +29,13 @@ export const infoSubmitted = ({name, number}) => {
       });
   }
 }
+
+export const infoFetch = () => {
+  const { currentUser } = firebase.auth();
+  return (dispatch) => {
+    firebase.database().ref(`/users/${currentUser.uid}/info`)
+      .on('value', snapshot => {
+        console.log(snapshot.val());
+      });
+  }
+}

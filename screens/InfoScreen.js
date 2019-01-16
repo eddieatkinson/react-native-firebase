@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
+import { infoFetch } from './../actions';
 
 class InfoScreen extends Component {
+  componentWillMount() {
+    this.props.infoFetch();
+  }
   render() {
     return (
       <View>
@@ -11,4 +16,6 @@ class InfoScreen extends Component {
   }
 }
 
-export default InfoScreen;
+export default connect(null, {
+  infoFetch,
+})(InfoScreen);
