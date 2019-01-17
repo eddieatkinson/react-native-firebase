@@ -14,6 +14,7 @@ class InfoScreen extends Component {
         <FlatList
           data={this.props.info}
           renderItem={({item}) => <Text>{item.name}{item.number}</Text>}
+          keyExtractor={item => item.uid}
         />
       </View>
     );
