@@ -1,5 +1,6 @@
 import firebase from 'firebase';
-import { NAME_CHANGED, NUMBER_CHANGED, INFO_CREATE, LOGIN_USER_FAILURE, CREATE_USER_SUCCESS, CREATE_USER_FAILURE } from './types';
+import { forOwn } from 'lodash';
+import { NAME_CHANGED, NUMBER_CHANGED, INFO_CREATE, LOGIN_USER_FAILURE, CREATE_USER_SUCCESS, CREATE_USER_FAILURE, INFO_FETCH } from './types';
 
 export const nameChanged = (text) => {
   return {
@@ -35,7 +36,16 @@ export const infoFetch = () => {
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/info`)
       .on('value', snapshot => {
-        console.log(snapshot.val());
+        const info = snapshot.val();
+        let infoArray = [];
+        // console.log(snapshot.val());
+        forOwn(info, (value, key) => {
+          // console.log(value);
+          // console.log(key);
+          infoArray.push({...value, uid: key});
+        });
+        // console.log(infoArray);
+        dispatch({type: INFO_FETCH, payload: infoArray});
       });
   }
 }

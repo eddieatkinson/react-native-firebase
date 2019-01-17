@@ -14,4 +14,5 @@ export const CREATE_USER_SUCCESS = 'create_user_success';
 export const CREATE_USER_FAILURE = 'create_user_failure';
 
 export const INFO_CREATE = 'info_create';
+export const INFO_FETCH = 'info_fetch';
 
