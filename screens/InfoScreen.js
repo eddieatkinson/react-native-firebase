@@ -9,7 +9,7 @@ class InfoScreen extends Component {
   }
 
   deleteItem(uid) {
-    console.log(uid);
+    // console.log(uid);
     this.props.deleteInfo(uid);
   }
 
@@ -34,7 +34,7 @@ class InfoScreen extends Component {
   }
 
   render() {
-    console.log(this.props.info);
+    // console.log(this.props.info);
     return (
       <View>
         <FlatList
@@ -48,7 +48,6 @@ class InfoScreen extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     info: state.info.info,
   }

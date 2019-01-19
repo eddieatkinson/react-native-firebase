@@ -40,7 +40,9 @@ export const infoFetch = () => {
         const info = snapshot.val();
         let infoArray = [];
         forOwn(info, (value, key) => {
-          infoArray.push({...value, uid: key});
+          if (value.active) {
+            infoArray.push({...value, uid: key});
+          }
         });
         dispatch({type: INFO_FETCH, payload: infoArray});
       });
