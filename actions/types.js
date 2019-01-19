@@ -15,4 +15,5 @@ export const CREATE_USER_FAILURE = 'create_user_failure';
 
 export const INFO_CREATE = 'info_create';
 export const INFO_FETCH = 'info_fetch';
+export const INFO_DELETE = 'infor_delete';
 

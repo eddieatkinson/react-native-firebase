@@ -3,7 +3,7 @@ import { NAME_CHANGED, NUMBER_CHANGED, INFO_CREATE, LOGIN_USER_SUCCESS, LOGIN_US
 const INITITAL_STATE = {
   name: '',
   number: '',
-  info: null,
+  info: {},
 };
 
 export default (state = INITITAL_STATE, action) => {
